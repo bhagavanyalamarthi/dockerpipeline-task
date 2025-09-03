@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Ticket Booking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    header {
+      background-color: #111;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .movie-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .movie {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 1rem;
+      max-width: 300px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .movie:hover {
+      transform: scale(1.02);
+    }
+
+    .movie img {
+      width: 100%;
+      height: auto;
+    }
+
+    .movie-details {
+      padding: 1rem;
+    }
+
+    .movie h3 {
+      margin-top: 0;
+    }
+
+    .showtimes {
+      margin: 1rem 0;
+    }
+
+    .showtimes select, .seats select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .book-btn {
+      background-color: #e50914;
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .book-btn:hover {
+      background-color: #c40812;
+    }
+
+    .confirmation {
+      background-color: #fff;
+      margin: 2rem auto;
+      padding: 1rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: none;
+      text-align: center;
+    }
+
+    .confirmation h2 {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎟️ Movie Ticket Booking</h1>
+</header>
+
+<div class="movie-container">
+
+  <!-- Movie Card -->
+  <div class="movie">
+    <img src="https://m.media-amazon.com/images/I/81bRsm0U7tL._AC_SY679_.jpg" alt="Movie 1">
+    <div class="movie-details">
+      <h3>Inception</h3>
+      <p>A mind-bending sci-fi thriller by Christopher Nolan.</p>
+      
+      <div class="showtimes">
+        <label>Show Time:</label>
+        <select class="showtime">
+          <option value="10:00 AM">10:00 AM</option>
+          <option value="1:00 PM">1:00 PM</option>
+          <option value="4:00 PM">4:00 PM</option>
+          <option value="7:00 PM">7:00 PM</option>
+        </select>
+      </div>
+
+      <div class="seats">
+        <label>Number of Tickets:</label>
+        <select class="seat-count">
+          <option value="1">1 - ₹150</option>
+          <option value="2">2 - ₹300</option>
+          <option value="3">3 - ₹450</option>
+          <option value="4">4 - ₹600</option>
+        </select>
+      </div>
+
+      <button class="book-btn" onclick="bookTicket('Inception', this)">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Add more movies below by duplicating the block above -->
+  <div class="movie">
+    <img src="https://m.media-amazon.com/images/I/91zVSkGGxbL._AC_UF894,1000_QL80_.jpg" alt="Movie 2">
+    <div class="movie-details">
+      <h3>Interstellar</h3>
+      <p>A space epic exploring time and black holes, also by Nolan.</p>
+      
+      <div class="showtimes">
+        <label>Show Time:</label>
+        <select class="showtime">
+          <option value="11:00 AM">11:00 AM</option>
+          <option value="2:00 PM">2:00 PM</option>
+          <option value="5:00 PM">5:00 PM</option>
+          <option value="8:00 PM">8:00 PM</option>
+        </select>
+      </div>
+
+      <div class="seats">
+        <label>Number of Tickets:</label>
+        <select class="seat-count">
+          <option value="1">1 - ₹180</option>
+          <option value="2">2 - ₹360</option>
+          <option value="3">3 - ₹540</option>
+          <option value="4">4 - ₹720</option>
+        </select>
+      </div>
+
+      <button class="book-btn" onclick="bookTicket('Interstellar', this)">Book Now</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Confirmation Box -->
+<div class="confirmation" id="confirmationBox">
+  <h2>✅ Booking Confirmed!</h2>
+  <p id="bookingDetails"></p>
+</div>
+
+<script>
+  function bookTicket(movieName, btn) {
+    const container = btn.closest('.movie-details');
+    const showtime = container.querySelector('.showtime').value;
+    const seatCountSelect = container.querySelector('.seat-count');
+    const tickets = seatCountSelect.value;
+    const priceText = seatCountSelect.options[seatCountSelect.selectedIndex].text.split('- ₹')[1];
+    const price = parseInt(priceText);
+
+    const confirmationBox = document.getElementById('confirmationBox');
+    const bookingDetails = document.getElementById('bookingDetails');
+
+    bookingDetails.innerHTML = `
+      <strong>Movie:</strong> ${movieName}<br>
+      <strong>Time:</strong> ${showtime}<br>
+      <strong>Tickets:</strong> ${tickets}<br>
+      <strong>Total Price:</strong> ₹${price}
+    `;
+
+    confirmationBox.style.display = 'block';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
